@@ -228,38 +228,3 @@ predict_input(new_input)
 ########################### SAVING MODEL TO DISK ##############################
 pickle.dump(model, open('model.pkl', 'wb'))
 model_pkl = pickle.load(open('model.pkl', 'rb'))
-
-def predict_input(single_input):
-    input_df = pd.DataFrame([single_input])
-    input_df[numeric_cols] = imputer.transform(input_df[numeric_cols])
-    input_df[numeric_cols] = scaler.transform(input_df[numeric_cols])
-    input_df[encoded_cols] = encoder.transform(input_df[categorical_cols])
-    X_input = input_df[numeric_cols + encoded_cols]
-    pred = model_pkl.predict(X_input)[0]
-    prob = model_pkl.predict_proba(X_input)[0][list(model.classes_).index(pred)]
-    return pred, prob
-
-new_input = {'Date': '2021-06-19',
-             'Location': 'Launceston',
-             'MinTemp': 23.2,
-             'MaxTemp': 33.2,
-             'Rainfall': 10.2,
-             'Evaporation': 4.2,
-             'Sunshine': np.nan,
-             'WindGustDir': 'NNW',
-             'WindGustSpeed': 52.0,
-             'WindDir9am': 'NW',
-             'WindDir3pm': 'NNE',
-             'WindSpeed9am': 13.0,
-             'WindSpeed3pm': 20.0,
-             'Humidity9am': 89.0,
-             'Humidity3pm': 58.0,
-             'Pressure9am': 1004.8,
-             'Pressure3pm': 1001.5,
-             'Cloud9am': 8.0,
-             'Cloud3pm': 5.0,
-             'Temp9am': 25.7,
-             'Temp3pm': 33.0,
-             'RainToday': 'Yes'}
-
-predict_input(new_input)
