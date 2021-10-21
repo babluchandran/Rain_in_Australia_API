@@ -5,3 +5,4 @@ sklearn
 flask_restful
 ipandas
 gunicorn
+pandas
