@@ -8,7 +8,8 @@ model = pickle.load(open('model.pkl', 'rb'))
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    #return render_template('index.html')
+    return "Rain in Australia"
 
 @app.route('/predict_api', methods=['POST'])
 def predict_api():
@@ -24,4 +25,4 @@ def predict_input(single_input):
     return pred
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    app.run(threaded=True, port=5000)
